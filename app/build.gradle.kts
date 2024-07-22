@@ -73,8 +73,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     // Room components
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
 
     // Retrofit
     implementation(libs.retrofit)
