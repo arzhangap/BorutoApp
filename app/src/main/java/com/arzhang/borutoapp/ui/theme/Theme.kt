@@ -1,6 +1,5 @@
 package com.arzhang.borutoapp.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -58,10 +57,10 @@ fun BorutoAppTheme(
     CompositionLocalProvider(
         LocalCustomColorsPalette provides customColorsPalette
     ) {
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
     }
 }

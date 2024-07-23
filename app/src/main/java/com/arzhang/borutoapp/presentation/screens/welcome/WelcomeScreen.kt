@@ -37,6 +37,7 @@ import com.arzhang.borutoapp.domain.model.OnBoardingPage
 import com.arzhang.borutoapp.ui.theme.EXTRA_LARGE_PADDING
 import com.arzhang.borutoapp.ui.theme.SMALL_PADDING
 import com.arzhang.borutoapp.ui.theme.customColorsPalette
+import com.arzhang.borutoapp.util.Constants.LAST_ON_BOARDING_PAGE
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -143,7 +144,7 @@ fun FinishButton(modifier: Modifier, pagerState: PagerState, onClick: () -> Unit
     ) {
         AnimatedVisibility(
             modifier = Modifier.fillMaxWidth(),
-            visible = pagerState.currentPage == 2
+            visible = pagerState.currentPage == LAST_ON_BOARDING_PAGE
         ) {
             Button(
                 onClick = onClick,
