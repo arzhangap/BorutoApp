@@ -32,6 +32,8 @@ data class CustomColorsPalette(
     val activeIndicatorColor: Color = Color.Unspecified,
     val inactiveColor: Color = Color.Unspecified,
     val buttonBackgroundColor: Color = Color.Unspecified,
+    val topAppbarContentColor: Color = Color.Unspecified,
+    val topAppbarBackgroundColor: Color = Color.Unspecified,
 )
 
 val LocalCustomColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
@@ -42,7 +44,9 @@ val OnLightCustomColorsPalette = CustomColorsPalette(
     descriptionColor = DarkGrey.copy(alpha = 0.5f),
     activeIndicatorColor = Purple500,
     inactiveColor = LightGrey,
-    buttonBackgroundColor = Purple500
+    buttonBackgroundColor = Purple500,
+    topAppbarContentColor = Color.White,
+    topAppbarBackgroundColor = Purple500
 )
 
 val OnDarkCustomColorsPalette = CustomColorsPalette(
@@ -52,6 +56,8 @@ val OnDarkCustomColorsPalette = CustomColorsPalette(
     activeIndicatorColor = Purple700,
     inactiveColor = DarkGrey,
     buttonBackgroundColor = Purple700,
+    topAppbarContentColor = LightGrey,
+    topAppbarBackgroundColor = Color.Black
 )
 
 
