@@ -81,14 +81,10 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
 
     // Paging 3.0
     implementation(libs.androidx.paging.compose)
-
-    // KotlinX Serialization
-    implementation(libs.kotlinx.serialization.json)
-
 
     // KotlinX Serialization
     implementation(libs.kotlinx.serialization.json)
