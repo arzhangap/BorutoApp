@@ -24,6 +24,8 @@ val Purple500 = Color(0xFF6200EE)
 val LightGrey = Color(0xFFD8D8D8)
 val DarkGrey = Color(0xFF2A2A2A)
 
+val StarColor = Color(0xFFFFC94D)
+
 @Immutable
 data class CustomColorsPalette(
     val welcomeScreenBackgroundColor: Color = Color.Unspecified,

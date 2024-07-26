@@ -13,6 +13,8 @@ import com.arzhang.borutoapp.domain.repository.RemoteDataSource
 import com.arzhang.borutoapp.util.Constants.ITEMS_PER_PAGE
 import kotlinx.coroutines.flow.Flow
 
+// Paging Source: retrieve data from source. (in here is local database)
+//
 class RemoteDataSourceImpl(
     private val borutoApi: BorutoApi,
     private val borutoDatabase: BorutoDatabase
@@ -21,6 +23,7 @@ class RemoteDataSourceImpl(
     private val heroDao = borutoDatabase.heroDao()
 
     @OptIn(ExperimentalPagingApi::class)
+    // Returns DATA IN FLOW
     override fun getAllHeroes(): Flow<PagingData<Hero>> {
         // set the single source of truth
         val pagingSourceFactory = {heroDao.getAllHeroes()}
