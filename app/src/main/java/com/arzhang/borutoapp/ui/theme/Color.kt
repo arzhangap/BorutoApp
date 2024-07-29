@@ -26,6 +26,11 @@ val DarkGrey = Color(0xFF2A2A2A)
 
 val StarColor = Color(0xFFFFC94D)
 
+val ShimmerLightGray = Color(0xFFF1F1F1)
+val ShimmerMediumGray = Color(0xFFE3E3E3)
+val ShimmerDarkGray = Color(0xFF1D1D1D)
+
+
 @Immutable
 data class CustomColorsPalette(
     val welcomeScreenBackgroundColor: Color = Color.Unspecified,
@@ -36,6 +41,8 @@ data class CustomColorsPalette(
     val buttonBackgroundColor: Color = Color.Unspecified,
     val topAppbarContentColor: Color = Color.Unspecified,
     val topAppbarBackgroundColor: Color = Color.Unspecified,
+    val shimmerEffectCardColor: Color = Color.Unspecified,
+    val shimmerEffectPlaceholderColor: Color = Color.Unspecified
 )
 
 val LocalCustomColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
@@ -48,7 +55,9 @@ val OnLightCustomColorsPalette = CustomColorsPalette(
     inactiveColor = LightGrey,
     buttonBackgroundColor = Purple500,
     topAppbarContentColor = Color.White,
-    topAppbarBackgroundColor = Purple500
+    topAppbarBackgroundColor = Purple500,
+    shimmerEffectCardColor = ShimmerLightGray,
+    shimmerEffectPlaceholderColor = ShimmerMediumGray
 )
 
 val OnDarkCustomColorsPalette = CustomColorsPalette(
@@ -59,7 +68,9 @@ val OnDarkCustomColorsPalette = CustomColorsPalette(
     inactiveColor = DarkGrey,
     buttonBackgroundColor = Purple700,
     topAppbarContentColor = LightGrey,
-    topAppbarBackgroundColor = Color.Black
+    topAppbarBackgroundColor = Color.Black,
+    shimmerEffectCardColor = Color.Black,
+    shimmerEffectPlaceholderColor = ShimmerDarkGray
 )
 
 
