@@ -9,6 +9,7 @@ import com.arzhang.borutoapp.data.local.BorutoDatabase
 import com.arzhang.borutoapp.data.remote.BorutoApi
 import com.arzhang.borutoapp.domain.model.Hero
 import com.arzhang.borutoapp.domain.model.HeroRemoteKeys
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -56,29 +57,28 @@ class HeroRemoteMediator @Inject constructor(
                     nextPage
                 }
             }
-
-            val response = borutoApi.getAllHeroes(page = page)
-            if (response.heroes.isNotEmpty()) {
-                borutoDatabase.withTransaction {
-                    if (loadType == LoadType.REFRESH) {
-                        heroDao.deleteAllHeroes()
-                        remoteKeysDao.deleteAllRemoteKeys()
+                val response = borutoApi.getAllHeroes(page = page)
+                if (response.heroes.isNotEmpty()) {
+                    borutoDatabase.withTransaction {
+                        if (loadType == LoadType.REFRESH) {
+                            heroDao.deleteAllHeroes()
+                            remoteKeysDao.deleteAllRemoteKeys()
+                        }
+                        val prevPage = response.prevPage
+                        val nextPage = response.nextPage
+                        val keys = response.heroes.map { hero ->
+                            HeroRemoteKeys(
+                                id = hero.id,
+                                nextPage = nextPage,
+                                prevPage = prevPage,
+                                lastUpdated = response.lastUpdated
+                            )
+                        }
+                        remoteKeysDao.addAllRemoteKeys(heroRemoteKeys = keys)
+                        heroDao.addHeroes(heroes = response.heroes)
                     }
-                    val prevPage = response.prevPage
-                    val nextPage = response.nextPage
-                    val keys = response.heroes.map { hero ->
-                        HeroRemoteKeys(
-                            id = hero.id,
-                            nextPage = nextPage,
-                            prevPage = prevPage,
-                            lastUpdated = response.lastUpdated
-                        )
-                    }
-                    remoteKeysDao.addAllRemoteKeys(heroRemoteKeys = keys)
-                    heroDao.addHeroes(heroes = response.heroes)
                 }
-            }
-            MediatorResult.Success(endOfPaginationReached = response.nextPage == null)
+                MediatorResult.Success(endOfPaginationReached = response.nextPage == null)
         } catch (e: Exception) {
             return MediatorResult.Error(e)
         }

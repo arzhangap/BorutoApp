@@ -13,7 +13,7 @@ interface BorutoApi {
 
     @GET("/boruto/heroes/search")
     suspend fun searchHeroes(
-        @Query(value = "name") name: String
+        @Query(value = "query") name: String
     ) : ApiResponse
 
 }
