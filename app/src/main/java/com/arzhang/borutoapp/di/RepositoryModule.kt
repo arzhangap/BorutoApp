@@ -6,6 +6,7 @@ import com.arzhang.borutoapp.data.repository.Repository
 import com.arzhang.borutoapp.domain.repository.DataStoreOperations
 import com.arzhang.borutoapp.domain.use_cases.UseCases
 import com.arzhang.borutoapp.domain.use_cases.get_all_heroes.GetAllHeroes
+import com.arzhang.borutoapp.domain.use_cases.get_selected_hero.GetSelectedHero
 import com.arzhang.borutoapp.domain.use_cases.read_onboarding.ReadOnBoarding
 import com.arzhang.borutoapp.domain.use_cases.save_onboarding.SaveOnBoarding
 import com.arzhang.borutoapp.domain.use_cases.search_heroes.SearchHeroes
@@ -35,7 +36,8 @@ object RepositoryModule {
             saveOnBoarding = SaveOnBoarding(repository),
             readOnBoarding = ReadOnBoarding(repository),
             getAllHeroes = GetAllHeroes(repository),
-            searchHeroes = SearchHeroes(repository)
+            searchHeroes = SearchHeroes(repository),
+            getSelectedHero = GetSelectedHero(repository)
         )
     }
 }

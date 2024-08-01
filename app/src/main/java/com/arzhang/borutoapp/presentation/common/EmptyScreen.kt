@@ -48,7 +48,7 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 
 @Composable
-fun EmptyScreen(error: LoadState.Error? = null, heroes: LazyPagingItems<Hero>? = null,modifier: Modifier = Modifier) {
+fun EmptyScreen(modifier: Modifier = Modifier, error: LoadState.Error? = null, heroes: LazyPagingItems<Hero>? = null) {
     var message by remember {
         mutableStateOf("Find your Favorite Hero!")
     }
@@ -120,7 +120,7 @@ fun EmptyContent(
                 fontSize = MaterialTheme.typography.bodyLarge.fontSize
             )
         }
-        PullToRefreshContainer(state = refreshState, modifier = modifier.align(Alignment.TopCenter))
+        PullToRefreshContainer(state = refreshState, modifier = Modifier.align(Alignment.TopCenter))
     }
     if(refreshState.isRefreshing) {
         LaunchedEffect(key1 = true) {

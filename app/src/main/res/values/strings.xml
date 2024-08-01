@@ -6,4 +6,12 @@
     <string name="star_path">M14,21.288,21.416,26l-1.968-8.88L26,11.145l-8.628-.771L14,2l-3.372,8.375L2,11.145,8.552,17.12,6.584,26Z</string>
     <string name="hero_image">Hero Image</string>
     <string name="network_error_icon">network error icon</string>
+    <string name="info_icon">Info Icon</string>
+    <string name="power">Power</string>
+    <string name="month">month</string>
+    <string name="birthday">birthday</string>
+    <string name="about">About</string>
+    <string name="family">Family</string>
+    <string name="abilities">Abilities</string>
+    <string name="nature_types">Nature Types</string>
 </resources>
