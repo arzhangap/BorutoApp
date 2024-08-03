@@ -16,4 +16,6 @@ object Constants {
 
     const val ITEMS_PER_PAGE = 3
 
+    const val MIN_BACKGROUND_IMAGE_FRACTION = 0.4f
+
 }
