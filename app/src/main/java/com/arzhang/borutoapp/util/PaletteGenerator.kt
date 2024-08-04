@@ -3,6 +3,7 @@ package com.arzhang.borutoapp.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import androidx.palette.graphics.Palette
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -47,14 +48,14 @@ object PaletteGenerator {
             val parsedColor = Integer.toHexString(color.rgb)
             return "#$parsedColor"
         } else {
-            "000000"
+            "#000000"
         }
     }
 
     private fun parseBodyColor(color: Int?): String {
         return if(color != null) {
             val parseColor = Integer.toHexString(color)
-            return "#$color"
+            return "#$parseColor"
         } else {
             "#FFFFFF"
         }

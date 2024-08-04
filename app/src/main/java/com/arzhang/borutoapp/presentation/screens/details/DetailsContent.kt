@@ -1,9 +1,8 @@
 package com.arzhang.borutoapp.presentation.screens.details
 
+import android.graphics.Color.parseColor
 import android.util.Log
 import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -25,19 +24,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +40,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -69,21 +63,29 @@ import com.arzhang.borutoapp.ui.theme.SMALL_PADDING
 import com.arzhang.borutoapp.ui.theme.customColorsPalette
 import com.arzhang.borutoapp.util.Constants.BASE_URL
 import com.arzhang.borutoapp.util.Constants.MIN_BACKGROUND_IMAGE_FRACTION
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsContent(
     navController: NavHostController,
-    selectedHero: Hero?
+    selectedHero: Hero?,
+    colors: Map<String, String>
 ) {
+    var vibrant by remember { mutableStateOf("#000000") }
+    var darkVibrant by remember { mutableStateOf("#000000") }
+    var onDarkVibrant by remember { mutableStateOf("#FFFFFF") }
     val scaffoldState = rememberBottomSheetScaffoldState(
         rememberStandardBottomSheetState(
             initialValue = SheetValue.Expanded
         )
     )
+    LaunchedEffect(selectedHero) {
+        vibrant = colors["vibrant"]!!
+        darkVibrant = colors["darkVibrant"]!!
+        onDarkVibrant = colors["onDarkVibrant"]!!
+    }
+    //workaround compose bug
     LaunchedEffect(Unit) {
         scaffoldState.bottomSheetState.expand()
     }
@@ -108,7 +110,14 @@ fun DetailsContent(
             topEnd = radiusAnime
         ),
         sheetContent = {
-            selectedHero?.let { BottomSheetContent(selectedHero = selectedHero) }
+            selectedHero?.let {
+                BottomSheetContent(
+                    selectedHero = selectedHero,
+                    infoBoxIconColor = Color(parseColor(vibrant)),
+                    sheetBackgroundColor =Color(parseColor(darkVibrant)),
+                    contentColor = Color(parseColor(onDarkVibrant))
+                )
+            }
         },
         sheetDragHandle = {}
     ) {
@@ -116,7 +125,8 @@ fun DetailsContent(
             BackgroundContent(
                 heroImage = hero.image,
                 imageFraction = currentSheetFraction,
-                onCloseClicked = {navController.popBackStack()}
+                onCloseClicked = {navController.popBackStack()},
+                backgroundColor = Color(parseColor(darkVibrant))
             )
         }
     }
@@ -126,10 +136,12 @@ fun DetailsContent(
 fun BottomSheetContent(
     selectedHero: Hero,
     infoBoxIconColor: Color = MaterialTheme.colorScheme.primary,
+    sheetBackgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = MaterialTheme.customColorsPalette.titleColor
 ) {
     Column(
         modifier = Modifier
+            .background(sheetBackgroundColor)
             .padding(LARGE_PADDING)
     ) {
         Row(
